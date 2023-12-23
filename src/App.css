@@ -1,0 +1,87 @@
+body {
+  background-color: rgb(237, 235, 224);
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  /* Add this line to prevent horizontal scrolling */
+}
+
+/* .container {
+
+} */
+.class0{
+  background-color: rgb(237, 235, 224);
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.head{
+display: flex;
+flex-direction: row;
+align-content: center;
+}
+.head_img{
+  height: 100px;
+  width: 100px;
+}
+.head p{
+  color: black;
+  font-size:xx-large;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-top: 40px;
+  margin-left: 50px;
+}
+.class2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:flex-start;
+  margin-top: 100px;
+  padding-top: 10px;
+}
+.class2 img{
+width: 500px;
+height: 400px;
+aspect-ratio:16/9;
+padding: 10px;
+}
+
+.card {
+ margin-left:100px;
+width: 500px;
+height: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vh-100 {
+  min-height: 100vh;
+}
+
+.card {
+  background-color: #495057;
+  color: #ffffff;
+}
+
+.card-title {
+  color: #ffffff;
+}
+
+.form-label {
+  color: #ffffff;
+}
+
+.form-control {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

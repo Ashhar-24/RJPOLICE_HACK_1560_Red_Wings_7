@@ -1,0 +1,21 @@
+/* src/MoneyFlow.css */
+
+.btn-group button {
+    border-radius: 0;
+  }
+  
+  .pagination {
+    justify-content: center;
+  }
+.row{
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+}
+.btn-group{
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+}
+  
+  

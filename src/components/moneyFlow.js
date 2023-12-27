@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import TransactionLogs from "./TransactionLogs"; 
+import TransactionLogs from "./TransactionLogs";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 import "./MoneyFlow.css";
 import tdata from "./a.json";
 
@@ -8,7 +9,7 @@ const MoneyFlow = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("UPI");
   const [currentPage, setCurrentPage] = useState(1);
   const [transactionData, setTransactionData] = useState(tdata);
-  
+
   // Filter transactions based on the selected payment method
   const filteredTransactions = transactionData.filter(
     (transaction) => transaction.method === selectedPaymentMethod
@@ -16,10 +17,7 @@ const MoneyFlow = () => {
 
   // total money transferred
   const totalMoneyTransferred = filteredTransactions
-    .reduce(
-      (total, transaction) => total + parseFloat(transaction.amount),
-      0
-    )
+    .reduce((total, transaction) => total + parseFloat(transaction.amount), 0)
     .toFixed(2);
 
   // total accounts involved
@@ -107,9 +105,9 @@ const MoneyFlow = () => {
           </div>
         </div>
         <div className="col-md-6 text-end">
-          <button type="button" className="btn btn-warning">
+          <Link to="/suspiciousActivity" className="btn btn-warning">
             Suspicious Activities
-          </button>
+          </Link>
         </div>
       </div>
 

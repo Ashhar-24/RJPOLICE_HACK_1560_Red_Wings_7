@@ -1,0 +1,117 @@
+
+.suspicious-accounts-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.suspicious-account-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.account-details {
+  flex-grow: 1;
+  color: #000;
+}
+
+.confirmation-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  padding: 20px;
+}
+
+.card {
+  width: 45%;
+  min-width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 10px;
+}
+
+.suspicious-card {
+  background-color: #dc8585; 
+  display: flex;
+  justify-content: center;
+}
+
+.confirmed-card {
+  background-color: #c1deeb; 
+  display: flex;
+  justify-content: center;
+}
+
+.card h2,
+.card p {
+  color: #000; 
+}
+
+/* ConfirmedFakeAccountsPage_CF.css */
+.page-container_CF {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100vh;
+  padding: 20px;
+  color: #000;
+}
+
+.container_CF {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row_CF {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card_CF {
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 10px 20px;
+}
+
+.card-body_CF {
+  padding: 20px;
+}
+
+.card-title_CF {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.list-group_CF {
+  padding: 8px;
+  border: none;
+}
+
+
+@media (max-width: 768px) {
+  .page-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card {
+    width: 100%;
+  }
+}

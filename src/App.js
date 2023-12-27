@@ -5,6 +5,7 @@ import MoneyFlow from './components/moneyFlow';
 import './App.css';
 import head from './images/header.png';
 import logo from './images/Rajasthan-Police.png'
+import SuspiciousActivity from './components/SuspiciousActivitiesPage';
 function LoginPage() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
@@ -79,6 +80,7 @@ function App() {
     <Routes>
       <Route path="/moneyflow" element={<MoneyFlow />} />
       <Route path="/" element={<LoginPage />} />
+      <Route path="/suspiciousActivity" element={<SuspiciousActivity/>} />
     </Routes>
   );
 }

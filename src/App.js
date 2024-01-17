@@ -88,6 +88,8 @@ function App() {
           `http://localhost:5000/api/Transactions/${searchId}`
         );
 
+        res.data.Remark = "Safe";
+
         console.log("Refresh Response:", res);
 
         setCustomerPhoneMap((prevMap) => ({
@@ -96,17 +98,14 @@ function App() {
         }));
 
         const data = {
-          CustomerID: res.data.CustomerID,
-          TransactionType: res.data.TransactionType,
           AmountTransferred: res.data.AmountTransferred,
-          ReceiverID: res.data.ReceiverID,
-          InitialBalanceSender: res.data.InitialBalanceSender,
+          AverageAmounts: res.data.AverageAmounts,
           FinalBalanceSender: res.data.FinalBalanceSender,
-          InitialBalanceReceiver: res.data.InitialBalanceReceiver,
           FinalBalanceReceiver: res.data.FinalBalanceReceiver,
-          DayOfWeek: 4,
-          HourOfDay: 12,
+          Distance: res.data.Distance,
+          InitialBalanceReceiver: res.data.InitialBalanceReceiver
         };
+
         const mlModelResponse = await axios
           .post("http://127.0.0.1:8000/predict", data)
           .catch((err) => console.log(err));
@@ -117,29 +116,24 @@ function App() {
         if (mlModelResponse && mlModelResponse.status === 200) {
           const predictions = mlModelResponse.data.predictions;
 
-          console.log("Predictions:", predictions[0]);
+          console.log("Predictions:", predictions);
 
-          if (
-            (predictions.length > 0 && predictions[0] === 1) ||
-            res.data.KYC === 1
-          ) {
-            setFraudTransactions((prevFraudTransactions) => [
-              ...prevFraudTransactions,
-              searchId,
-            ]);
-          }
           const currData = { ...res.data }; // Copy the data to avoid mutating the original object
-          currData.FraudFlag = predictions[0];
+          currData.FraudFlag = predictions;
 
-          if(predictions[0]===1){
-            currData.Remark="Model Detected";
+          if (predictions === 1) {
+            currData.Remark = "Model Detected";
           }
 
           //checking for incomplete KYC
-          if (res.data.KYC === 1) {
-            currData.FraudFlag = 1;
-            currData.Remark = "Not KYC";            
-          }
+          // if (res.data.KYC === 1) {
+          //   currData.FraudFlag = 1;
+          //   if (predictions[0] === 1) {
+          //     currData.Remark = "Model Detected & Not KYC";
+          //   } else {
+          //     currData.Remark = "Not KYC";
+          //   }
+          // }
           const ct = res.data.TransactionDate;
           const [, ctimeComponent] = ct.split("T");
           const cTime = ctimeComponent.slice(0, -1);
@@ -169,16 +163,16 @@ function App() {
           const phone = customerPhoneMap[res.data.CustomerID];
           const sameNumberAccounts = transactions.filter(
             (transaction) =>
-              transaction.MobileNumber === phone && transaction.CustomerID !== res.data.CustomerID
+              transaction.MobileNumber === phone &&
+              transaction.CustomerID !== res.data.CustomerID
           );
-  
+
           if (sameNumberAccounts.length > 0) {
-            // Mark transactions with the same phone number as fraud
             sameNumberAccounts.forEach((account) => {
               account.FraudFlag = 1;
-              account.Remark = "Multiple No."
+              account.Remark = "Multiple No.";
             });
-  
+
             setFraudTransactions((prevFraudTransactions) => [
               ...prevFraudTransactions,
               ...sameNumberAccounts.map((account) => account.Search_id),
@@ -188,6 +182,13 @@ function App() {
             ...prevTransactions,
             currData,
           ]);
+
+          if (currData.FraudFlag === 1) {
+            setFraudTransactions((prevFraudTransactions) => [
+              ...prevFraudTransactions,
+              searchId,
+            ]);
+          }
 
           console.log("updated Transactions are:", transactions);
         } else {
@@ -207,23 +208,29 @@ function App() {
   }, [transactions]);
 
   return (
-    <div className="App w-full h-full overflow-auto flex absolute">
+    <div className="App w-full  h-full  overflow-auto flex ">
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard transactions={transactions} />} />
         <Route
           path="/Credit"
-          element={<Credit name = "Self-Credit" transactions={transactions} />}
+          element={<Credit name="Self-Credit" transactions={transactions} />}
         />
-        <Route path="/Debit" element={<Debit name = "Self-debit" transactions={transactions} />} />
+        <Route
+          path="/Debit"
+          element={<Debit name="Self-debit" transactions={transactions} />}
+        />
         <Route
           path="/Netbanking"
-          element={<Netbanking name = "Netbanking" transactions={transactions} />}
+          element={<Netbanking name="Netbanking" transactions={transactions} />}
         />
-        <Route path="/fraud" element={<Fraud name = "fraud" transactions={transactions} />} />
+        <Route
+          path="/fraud"
+          element={<Fraud name="fraud" transactions={transactions} />}
+        />
         <Route
           path="/customer-history/:customerId"
-          element={<CustomerHistory transactions={DUMMY_TRANSACTION} />}
+          element={<CustomerHistory transactions={transactions} />}
         />
       </Routes>
     </div>

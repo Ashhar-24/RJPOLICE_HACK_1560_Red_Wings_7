@@ -1,19 +1,20 @@
 import React from "react";
-import Linechart from "./Linechart";
-import Piechart from "./Piechart";
+import PieChart from "./Pie";
+import Cards from "./Cards";
+
 
 function Dashboard({ transactions }) {
   // console.log("last chk", transactions);
   return (
     <div className="flex flex-col py-12 px-14">
-      <h1 className="text-white text-2xl font-bold relative text-center">
+      <h1 className="text-black text-2xl font-bold relative text-center">
         Dashboard
       </h1>
 
       {/* Display the transactions in a table */}
       <div className="py-10">
-        <h1 className="font-bold text-2xl mb-4">Transaction Table:</h1>
-        <table className="table-auto w-full">
+        <h1 className="font-bold text-2xl mb-4 text-black">Transaction Table:</h1>
+        <table className="table-auto w-full bg-[#F8FAF5] ">
           <thead>
             <tr className="bg-gray-800 text-white">
               <th className="px-4 py-2">Search ID</th>
@@ -56,9 +57,11 @@ function Dashboard({ transactions }) {
       {/* For the graph */}
       <div className="py-10 flex flex-col justify-around">
         <h1 className="flex right-6 font-bold text-2xl">Transaction Graph:</h1>
-        <div className="flex justify-around max-w-4/5 max-h-[300px] pt-10 shadow-xl shadow-slate-950 rounded">
-          <Linechart></Linechart>
-          <Piechart></Piechart>
+        <div className="flex justify-around  pt-10 shadow-xl shadow-slate-950 rounded">
+
+          <PieChart transactions={transactions} />
+          {/* use for the cards */}
+          <Cards transactions={{transactions}}></Cards>
         </div>
       </div>
     </div>
